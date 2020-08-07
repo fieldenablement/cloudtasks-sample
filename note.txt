@@ -8,3 +8,6 @@ git push -u origin master
  git branch --set-upstream-to=origin/master master
  git pull --allow-unrelated-histories
  git pull origin master
+ ================
+ docker build --no-cache -t gkeappdemo .
+ docker run -it --rm -p 8080:8080 gkeappdemo
