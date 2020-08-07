@@ -3,8 +3,12 @@ package com.telus.workforcemgmt.poc.demo;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +23,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CloudTaskHandler {
 
+	Logger logger = LoggerFactory.getLogger(CloudTaskHandler.class);
+	
+	
 	private static final String URL = "";
 	private static final String PROJECT_ID ="techhub-ui-2df643b4";
 	private static final String LOCATION_ID ="northamerica-northeast1";
@@ -42,4 +49,10 @@ public class CloudTaskHandler {
 		}
 		return new ResponseEntity<Void>(HttpStatus.ACCEPTED);
 	}
+	
+	@GetMapping("/task/{id}")
+	  public TaskRequest one(@PathVariable Long id) {
+		logger.info("entering task id");
+	    return new TaskRequest("test: " + id);
+	  }
 }
