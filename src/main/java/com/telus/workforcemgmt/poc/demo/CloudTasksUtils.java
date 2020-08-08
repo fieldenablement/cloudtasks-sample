@@ -5,6 +5,9 @@ import java.nio.charset.Charset;
 import java.time.Clock;
 import java.time.Instant;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+
 import com.google.cloud.tasks.v2.CloudTasksClient;
 import com.google.cloud.tasks.v2.HttpMethod;
 import com.google.cloud.tasks.v2.QueueName;
@@ -31,7 +34,8 @@ public class CloudTasksUtils {
 			Task.Builder taskBuilder =
 					Task.newBuilder()
 					.setHttpRequest(
-							HttpRequest.newBuilder().putHeaders("Content-Type", "application/json")
+							HttpRequest.newBuilder()
+							.putHeaders(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
 							.setBody(ByteString.copyFrom(payload, Charset.defaultCharset()))
 							.setUrl(targetUrl)
 							.setHttpMethod(HttpMethod.POST)
