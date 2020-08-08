@@ -26,10 +26,10 @@ public class CloudTaskHandler {
 	Logger logger = LoggerFactory.getLogger(CloudTaskHandler.class);
 	
 	
-	private static final String URL = "";
-	private static final String PROJECT_ID ="techhub-ui-2df643b4";
-	private static final String LOCATION_ID ="northamerica-northeast1";
-	private static final String QUEUE_ID ="wfm-click";
+	private static final String URL = "http://34.125.14.42/taskHandler";
+	private static final String PROJECT_ID ="level-amphora-275105";
+	private static final String LOCATION_ID ="us-west4";
+	private static final String QUEUE_ID ="test";
 	
 	@PostMapping(value = "/taskHandler")
 	public ResponseEntity<?> handler(UriComponentsBuilder builder, @RequestBody TaskRequest req)  {
@@ -53,6 +53,6 @@ public class CloudTaskHandler {
 	@GetMapping("/task/{id}")
 	  public TaskRequest one(@PathVariable Long id) {
 		logger.info("entering task id");
-	    return new TaskRequest("test: " + id);
+	    return new TaskRequest("test version 2: " + id);
 	  }
 }

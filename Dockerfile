@@ -1,6 +1,9 @@
-FROM openjdk:8-jdk-alpine
-ARG JAR_FILE=target/*.jar
-RUN addgroup -S spring && adduser -S spring -G spring
-USER spring:spring
-COPY ${JAR_FILE} demo-0.0.1-SNAPSHOT.jar
-ENTRYPOINT ["java","-jar","/demo-0.0.1-SNAPSHOT.jar"]
+FROM openjdk:8
+VOLUME /tmp
+RUN mkdir /application
+COPY . /application
+WORKDIR /application
+RUN chmod +x mvnw
+RUN /application/mvnw install 
+RUN mv /application/target/*.jar /application/app.jar
+ENTRYPOINT ["java","-jar","/application/app.jar"]

@@ -11,3 +11,35 @@ git push -u origin master
  ================
  docker build --no-cache -t gkeappdemo .
  docker run -it --rm -p 8080:8080 gkeappdemo
+ 
+ ==============
+ gcloud auth login
+ gcloud projects list
+ gcloud config list
+ gcloud config set project level-amphora-275105
+ 
+ ============
+ gcloud tasks queues create [QUEUE_ID]
+ gcloud tasks queues describe [QUEUE_ID]
+ 
+ 
+ =============
+ gcloud builds submit --tag=gcr.io/level-amphora-275105/gkeappdemo:v1 . 
+ gcloud container images list
+ gcloud container clusters create cloudtask-sample --num-nodes=3 --region=us-west4-a
+ gcloud config set container/cluster cloudtask-sample
+ 
+ kubectl create deployment cloudtasksample  --image=gcr.io/level-amphora-275105/gkeappdemo:v1
+ kubectl get pods
+ kubectl describe pod <pod-name>
+ 
+kubectl expose deployment cloudtasksample --name=cloudtasksample-service --type=LoadBalancer --port 80 --target-port 8080
+
+ kubectl get service
+ 
+ ============
+ gcloud builds submit --tag=gcr.io/level-amphora-275105/gkeappdemo:v2 .
+$ kubectl set image deployment/cloudtasksample gkeappdemo=gcr.io/level-amphora-275105/gkeappdemo:v2 #gkeappdemo is container name
+$ kubectl get service
+
+
