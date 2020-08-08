@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "level-amphora-275105",
+  "private_key_id": "a6aa03f03237cf8ed556b4e2b419a3336793bd9b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCiWRR4X/E4+gfb\npU2x6SP67PlB5NyBBQEV7+yxEgR6rS5gnCU+QdG3FPwBnWieprWrYQW5oh22pHwF\nJ7BT70zilMOQKw37VrvwQp1Yol3Ozk+q91zIKeiktkhphDT48CFFbDlIVh6G+CxC\nfqS+GHw+n2ePHgbemsrp3rfSF9kMLMW555+i8aVNv/mN4pDlDmtUywToiyby6dsl\nqEaUXnbf9J95o8H+Q+uk0XneeYXguSL5J2TWDwUop3wDKGGefleNbWzHWsf9ZPd2\nHXocjsCmbUMODpwJxt5wgyCUt36TWMUl8KV/tFD4xOteqJq0DJUIGXInYYo5UXkW\nmzcXaV3dAgMBAAECggEAH8T4V0UJHqn5Cy+6OEhECPjCHzWyu9G3oGwawJziwQHu\nSywLMrdtG1txJDzCKhe8Ac1C8kxp7aGa/mRBom8397f+XBI80nQq422ZvmxJmKxx\nVSbCYo4m70KXgYSEXDmbfSscO45Uu3tJp/qB8Qw4FgYaHRzWYc3fSuxRQvz1Nacm\ngPDT9ZMDM1hkWGPT4yiPIAoyoiLSu6wO7QbsVKM8UuCdtgBWjRRlninPRSgtp9Fi\nfhqIyaKisP51MX86wy1fZnyL/TMsFZgQQa/bZ/3DeaUy1m1aiIoDzfdPYMSQspXU\n9EoaIPEu0JCbwldmkHEPgh4hz1KyPqYH4NfIOuMhwQKBgQDNHQoENzoVFBwirgMF\nXUsQXtdrfcWhRGyFhXYl/IL7VUbHeCP9hNkWwAo91xywoHEiPs4fU9JMYPTDPk37\n0Ak1KcYoT666c63cHfc0fIhiwCoedE2bcD/tp0Ujfur+NymaHGHobmav2Twhw1jc\nmGVtdRfVonXdI1i3dF/fNe0+HQKBgQDKn/aJMWZ+oITrmpGa7kp6dn3WqXdZ2LEx\nNucFOEu58FVu1jycfP3O+AreutYtWIiXfJUl3dTlYZj6UCkJEpkc+4fg7hR0kDwV\nKpC7+CQetBc/iTeRoaU8MNCIiz90b2WB22aT7R85VsJTJZDjdsTu2bEagGOl1TyC\nhK5FBNWSwQKBgQCKsoQ/bYjdEAgmezyXuAo2O6u3iAjHkBlCAIlwDlwT0ApYf6j2\nmYqik6FZR8iitxtJaObA0FF4TGe2Tr808+wGAwV35MnmUqrSGYE8AKnI/OB+T27b\nGQBhl6Zs5jnJRUvgZijenyjY6DB9NDc2k+aiKXfAgmbo7injg9IAgdq3EQKBgQCw\no3qcZwBe6zh0266LTaiH0bwp4lo1bP4rVR1YI5eAZM9VbFYyZZQtVXbEbERCC6gn\nx2eONzBdNxPRQwhC7H+mEHCH2YTjiMmX+h9qfgue6IhLzycuQah2LGfeYOXUbzgi\nWE24L0LFDakiKuGAKg3L2uLVo487BgVWEqyJZol5AQKBgQCuoeDAPJU7GPtpCJzB\nk+/PEGTNGceZ8uiRhKH0YsRCEKk4/Br4Z4q8ew5ijvbZxQCkLL3D3+HG9sqa0Yzl\nBrtMS53DNAdgqbkoBCu+i3wgBn+MVJ/tlL8aRgx9NypkuLGwvbbdkCoZQsu2w7JR\nuzDhxEc875TIBkWNV3XnrHkFug==\n-----END PRIVATE KEY-----\n",
+  "client_email": "cloudtasksample@level-amphora-275105.iam.gserviceaccount.com",
+  "client_id": "104618663700742305902",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cloudtasksample%40level-amphora-275105.iam.gserviceaccount.com"
+}

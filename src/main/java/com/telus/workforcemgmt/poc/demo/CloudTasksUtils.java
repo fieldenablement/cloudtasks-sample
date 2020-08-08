@@ -31,7 +31,7 @@ public class CloudTasksUtils {
 			Task.Builder taskBuilder =
 					Task.newBuilder()
 					.setHttpRequest(
-							HttpRequest.newBuilder()
+							HttpRequest.newBuilder().putHeaders("Content-Type", "application/json")
 							.setBody(ByteString.copyFrom(payload, Charset.defaultCharset()))
 							.setUrl(targetUrl)
 							.setHttpMethod(HttpMethod.POST)

@@ -26,7 +26,8 @@ git push -u origin master
  =============
  gcloud builds submit --tag=gcr.io/level-amphora-275105/gkeappdemo:v1 . 
  gcloud container images list
- gcloud container clusters create cloudtask-sample --num-nodes=3 --region=us-west4-a
+ # !!!!! need set permission. created cloudtasksample in console !!!!
+ gcloud container clusters create cloudtask-sample --num-nodes=3 --region=us-west4-a --scopes=cloud-platform
  gcloud config set container/cluster cloudtask-sample
  
  kubectl create deployment cloudtasksample  --image=gcr.io/level-amphora-275105/gkeappdemo:v1
@@ -41,5 +42,9 @@ kubectl expose deployment cloudtasksample --name=cloudtasksample-service --type=
  gcloud builds submit --tag=gcr.io/level-amphora-275105/gkeappdemo:v2 .
 $ kubectl set image deployment/cloudtasksample gkeappdemo=gcr.io/level-amphora-275105/gkeappdemo:v2 #gkeappdemo is container name
 $ kubectl get service
+====
+curl http://34.125.14.42/task/1
 
+curl -d '{"content":"test version 2: 1"}' -H 'Content-Type: application/json' http://34.125.14.42/task
+Invoke-WebRequest "http://34.125.14.42/createTask" -Method POST -Headers @{"Content-Type" = "application/json"} -body @{"content"="test version 2: 1"}
 

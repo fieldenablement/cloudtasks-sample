@@ -1,13 +1,11 @@
 package com.telus.workforcemgmt.poc.demo;
 
+import lombok.Data;
+
+@Data
 public class TaskRequest {
 
 	private String content;
-
-	public TaskRequest(String content) {
-		super();
-		this.content = content;
-	}
 
 	public String getContent() {
 		return content;
@@ -15,6 +13,11 @@ public class TaskRequest {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	@Override
+	public String toString() {
+		return "TaskRequest [content=" + content + "]";
 	}
 	
 	
