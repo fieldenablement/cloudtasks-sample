@@ -1,4 +1,4 @@
-package com.telus.workforcemgmt.poc.demo;
+package org.geetjwan.async;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -18,6 +18,11 @@ import com.google.cloud.tasks.v2.HttpRequest;
 
 public class CloudTasksUtils {
 
+	public static Task createTask(CloudTaskDestination dest, String payload, int delayperiod) throws IOException {
+		return createTask(dest.getProjectId(), dest.getLocationId(), 
+				dest.getQueueId(), payload, dest.getTargetUrl(), delayperiod);
+	}
+	
 	public static Task createTask(String projectId, 
 			String locationId, 
 			String queueId, String payload, 

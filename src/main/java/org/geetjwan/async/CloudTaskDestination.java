@@ -1,7 +1,16 @@
-package com.telus.workforcemgmt.poc.demo;
+package org.geetjwan.async;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class CloudTaskDestination  {
 
+
+	private static final String URL = "http://34.125.225.87/taskHandler";
+	private static final String PROJECT_ID ="level-amphora-275105";
+	private static final String LOCATION_ID ="us-west4";
+	private static final String QUEUE_ID ="test";
+	
 	private String projectId;
 	private String locationId; 
 	private String queueId; 
