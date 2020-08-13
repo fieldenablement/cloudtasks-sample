@@ -3,7 +3,9 @@ package org.geetjwan.async;
 
 import javax.management.timer.Timer;
 
+import org.springframework.stereotype.Component;
 
+@Component
 public class AsyncConfigurable {
 
 	private int maxRetryForFailed = 10;

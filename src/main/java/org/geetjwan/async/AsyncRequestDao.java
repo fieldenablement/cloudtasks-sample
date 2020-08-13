@@ -29,13 +29,15 @@ public class AsyncRequestDao {
 
 	private SimpleJdbcInsert simpleJdbcInsert;
 
+	
+
 	@Autowired
 	public void setDataSource(final DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 		namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 		simpleJdbcInsert = new SimpleJdbcInsert(dataSource).withTableName(AsyncRequestRowMapper.TABLE_NAME).usingGeneratedKeyColumns(AsyncRequestRowMapper.ID);
 	}
-
+	
 	public AsyncRequest getAsyncRequest(final int id) {
 		return jdbcTemplate.queryForObject(SELECT_BY_ID, new Object[] { id }, new AsyncRequestRowMapper());
 	}

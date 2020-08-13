@@ -16,27 +16,27 @@ git push -u origin master
  gcloud projects list
  gcloud config list
  gcloud config set project level-amphora-275105
- ============
+ ============Create Cloud Task
  gcloud tasks queues create [QUEUE_ID]
  gcloud tasks queues describe [QUEUE_ID]
- =============
+ =============Create Cloud SQL
  gcloud sql instances create synccloudtasks-instance --zone=us-west4-a
  gcloud sql databases create syncloudtasks --instance synccloudtasks-instance
  gcloud sql instances describe synccloudtasks-instance |grep connectionName
- =====================
+ ==============Create GKE Clouster
  gcloud container clusters create cloudtask-sample --num-nodes=3 --region=us-west4-a --scopes=cloud-platform # cloud-platform scope allows cluster access to cloudtask
  gcloud config set container/cluster cloudtask-sample
- ==============
+ ==============build GCP image in container registery
  gcloud builds submit --tag=gcr.io/level-amphora-275105/gkeappdemo:v1 . 
  gcloud container images list
- ==============================
+ ===============Create GKE deployment and service
  kubectl create deployment cloudtasksample  --image=gcr.io/level-amphora-275105/gkeappdemo:v1
  kubectl get pods
  kubectl describe pod <pod-name>
  kubectl expose deployment cloudtasksample --name=cloudtasksample-service --type=LoadBalancer --port 80 --target-port 8080
  kubectl get service
  
- ============
+ ============ Update GKE with new version
  gcloud builds submit --tag=gcr.io/level-amphora-275105/gkeappdemo:v2 .
 $ kubectl set image deployment/cloudtasksample gkeappdemo=gcr.io/level-amphora-275105/gkeappdemo:v2 #gkeappdemo is container name
 $ kubectl get service
@@ -47,7 +47,13 @@ curl http://34.125.14.42/task/1
 curl -d '{"content":"test version 2: 1"}' -H 'Content-Type: application/json' http://34.125.14.42/task
 Invoke-WebRequest "http://34.125.14.42/createTask" -Method POST -Headers @{"Content-Type" = "application/json"} -body @{"content"="test version 2: 1"}
 
-==============
-Add Environment Variable in Eclipse Run Configuration. GOOGLE_APPLICATION_CREDENTIALS = 
+==============Spring boot environement configuration 
+Add Environment Variable in Eclipse Run Configuration:
+GOOGLE_APPLICATION_CREDENTIALS = [service account.json file location]
+SPRING_CLOUD_GCP_LOGGING_PROJECT_ID =[gcp project id]
 
-====================
+====================CloudSQLConnecting from Google Kubernetes Engine
+create Cloud proxy
+create service account with permission:Cloud SQL Client, Cloud SQL Editor, Cloud SQL Admin
+cloud_sql_proxy -instances=level-amphora-275105:us-west4:synccloudtasks-instance=tcp:1433 -credential_file C:\Users\t835630\git\repository\cloudtasks-sample\MyFirstProject-a6aa03f03237.json
+

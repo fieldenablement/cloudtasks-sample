@@ -11,18 +11,11 @@ public class CloudTaskDestination  {
 	private static final String LOCATION_ID ="us-west4";
 	private static final String QUEUE_ID ="test";
 	
-	private String projectId;
-	private String locationId; 
-	private String queueId; 
-	private String targetUrl;
+	private String projectId = PROJECT_ID;
+	private String locationId = LOCATION_ID; 
+	private String queueId = QUEUE_ID; 
+	private String targetUrl = URL;
 	
-	public CloudTaskDestination(String projectId, String locationId, String queueId, String targetUrl) {
-		super();
-		this.projectId = projectId;
-		this.locationId = locationId;
-		this.queueId = queueId;
-		this.targetUrl = targetUrl;
-	}
 	
 	public String getProjectId() {
 		return projectId;
