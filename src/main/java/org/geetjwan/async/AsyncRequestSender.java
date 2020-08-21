@@ -18,6 +18,7 @@ public class AsyncRequestSender {
 	public int send(CloudTaskDestination destination, AsyncRequest request, int delayTime) {
 		try {
 			int id = dao.save(request);
+			request.setId(id);
 			ObjectMapper mapper = new ObjectMapper();
 			String jsonString = mapper.writeValueAsString(request);
 			CloudTasksUtils.createTask(destination, jsonString, delayTime);

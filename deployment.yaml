@@ -21,6 +21,15 @@ spec:
         image: gcr.io/level-amphora-275105/gkeappdemo:v10 
         ports: 
         - containerPort: 8080
+        env:
+        - name: SPRING_CLOUD_GCP_LOGGING_PROJECT_ID
+          value: "level-amphora-275105"
+        - name: LOCATION_ID
+          value: "us-west4"
+        - name: QUEUE_ID
+          value: "test"
+        - name: TARGET_URL
+          value: "http://34.125.225.87/taskHandler"
       - name: cloud-sql-proxy
         image: gcr.io/cloudsql-docker/gce-proxy:1.17
         command:
