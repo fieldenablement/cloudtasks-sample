@@ -1,0 +1,30 @@
+#https://cloud.google.com/sql/docs/mysql/connect-kubernetes-engine
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudsample-deployment
+  labels: 
+    app: cloudsample
+spec:
+  replicas: 2
+  selector:
+    matchLabels: 
+      app: cloudsample
+  template:
+    metadata:
+      labels:
+        app: cloudsample
+    spec: 
+      serviceAccountName: cloudsampleksa
+      containers: 
+      - name: cloudsample
+        image: gcr.io/level-amphora-275105/gkeappdemo:v2 
+        ports: 
+        - containerPort: 80
+      - name: cloud-sql-proxy
+        image: gcr.io/cloudsql-docker/gce-proxy:1.17
+        command:
+          - "/cloud_sql_proxy"
+          - "-instances=level-amphora-275105:us-west4:synccloudtasks-instance=tcp:1433"
+        securityContext:
+          runAsNonRoot: true        

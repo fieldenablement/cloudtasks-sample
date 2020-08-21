@@ -9,7 +9,8 @@
             </layout>
         </encoder>
     </appender>
-
+	<logger name="org.geetjwan.async" level="DEBUG" />
+	<logger name="org.springframework" level="DEBUG" /> 
     <root level="INFO">
         <appender-ref ref="CONSOLE_JSON" />
     </root>

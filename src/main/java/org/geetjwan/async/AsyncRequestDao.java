@@ -1,5 +1,6 @@
 package org.geetjwan.async;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,8 +20,8 @@ import org.springframework.stereotype.Repository;
 public class AsyncRequestDao {
 
 	private static final String SELECT_BY_ID = "SELECT * FROM TASK_QUEUE WHERE ID = ?";
-	private static final String UPDATE_WITHOUT_PROCESSMESSAGE = "UPDATE TASK_QUEUE SET ATTEMPTS=:attempts, SET STATUS=:status, SET UPDATE_TIMESTAMP=:updateTimestamp where ID=:id";
-	private static final String UPDATE_WITH_PROCESSMESSAGE = "UPDATE TASK_QUEUE SET ATTEMPTS=:attempts, SET STATUS=:status, SET UPDATE_TIMESTAMP=:updateTimestamp, set PROCESS_MESSAGE=:processMessage where ID=:id";
+	private static final String UPDATE_WITHOUT_PROCESSMESSAGE = "UPDATE TASK_QUEUE SET ATTEMPTS=:attempts, SET STATUS=:status where ID=:id";
+	private static final String UPDATE_WITH_PROCESSMESSAGE = "UPDATE TASK_QUEUE SET ATTEMPTS=:attempts, SET STATUS=:status, set PROCESS_MESSAGE=:processMessage where ID=:id";
 	private static final String QUERY_PENDING = "SELECT ID, ATTEMPTS, SOURCE, TARGET, TARGET_URL, REFERENCE_ID, REFERENCE_TYPE, SYNC_ID, STATUS, OPERATION_NAME, TRANSACTION_ID FROM TASK_QUEUE WHERE SYNC_ID = :synId AND STATUS in ('NEW', 'ONHOLD', 'FAILED', 'WAIT', BLOCKED')";
 
 	private JdbcTemplate jdbcTemplate;
@@ -45,7 +46,7 @@ public class AsyncRequestDao {
 	public int save(final AsyncRequest req) {
 		final Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put(AsyncRequestRowMapper.ATTEMPTS, req.getAttempts());
-		parameters.put(AsyncRequestRowMapper.CREATE_TIMESTAMP, req.getCreateTimeStamp());
+		parameters.put(AsyncRequestRowMapper.CREATE_TIMESTAMP, new Date());
 		parameters.put(AsyncRequestRowMapper.CREATE_USER, req.getCreateUser());
 		parameters.put(AsyncRequestRowMapper.REFERENCE_ID, req.getReferenceId());
 		parameters.put(AsyncRequestRowMapper.REFERENCE_TYPE, req.getReferenceType());

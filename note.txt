@@ -35,6 +35,7 @@ git push -u origin master
  kubectl describe pod <pod-name>
  kubectl expose deployment cloudtasksample --name=cloudtasksample-service --type=LoadBalancer --port 80 --target-port 8080
  kubectl get service
+ kubectl describe deployments
  
  ============ Update GKE with new version
  gcloud builds submit --tag=gcr.io/level-amphora-275105/gkeappdemo:v2 .
@@ -44,8 +45,8 @@ $ kubectl get service
 ====
 curl http://34.125.14.42/task/1
 
-curl -d '{"content":"test version 2: 1"}' -H 'Content-Type: application/json' http://34.125.14.42/task
-Invoke-WebRequest "http://34.125.14.42/createTask" -Method POST -Headers @{"Content-Type" = "application/json"} -body @{"content"="test version 2: 1"}
+curl -d '{"source":"source", "target":"target", "targetUrl":"http://localhost:8080", "referenceId":"referenceId", "referenceType":"referenceType", "syncId":"syncId", "status":"NEW", "requestMessage":"{\"requestMessage\":\"test\"}", "createUser":"createUser", "operationName":"operationName", "transactionId":"transactionId"}' -H 'Content-Type: application/json' http://34.125.14.42/task
+Invoke-WebRequest "http://34.125.14.42/createTask" -Method POST -Headers @{"Content-Type" = "application/json"} -body @{"source":"source", "target":"target", "targetUrl":"http://localhost:8080", "referenceId":"referenceId", "referenceType":"referenceType", "syncId":"syncId", "status":"NEW", "requestMessage":"{\"requestMessage\":\"test\"}", "createUser":"createUser", "operationName":"operationName", "transactionId":"transactionId"}
 
 ==============Spring boot environement configuration 
 Add Environment Variable in Eclipse Run Configuration:
@@ -56,4 +57,47 @@ SPRING_CLOUD_GCP_LOGGING_PROJECT_ID =[gcp project id]
 create Cloud proxy
 create service account with permission:Cloud SQL Client, Cloud SQL Editor, Cloud SQL Admin
 cloud_sql_proxy -instances=level-amphora-275105:us-west4:synccloudtasks-instance=tcp:1433 -credential_file C:\Users\t835630\git\repository\cloudtasks-sample\MyFirstProject-a6aa03f03237.json
+================== add environment variable
+gcloud composer environments update test-environment 
+   --location us-west4 
+   --update-env-variables=SPRING_CLOUD_GCP_LOGGING_PROJECT_ID=[gcp project id],LOCATION_ID=[],QUEUE_ID=[queue],TARGET_URL=[url]
+
+
+
+=======================
+Connecting from Google Kubernetes Engine
+https://cloud.google.com/sql/docs/mysql/connect-kubernetes-engine
+
+Enable Workload Identity on an existing cluster
+gcloud container clusters update  cloudtasksample --workload-pool=level-amphora-275105.svc.id.goog  --zone=us-west4-a
+
+Connect to the K8S cluster
+gcloud container clusters get-credentials cloudtasksample --zone us-west4-a --project level-amphora-275105
+
+kubectl get namespace
+
+
+Connecting using the Cloud SQL Proxy
+- Create a KSA for your application kubectl apply -f service-account.yaml
+	apiVersion: v1
+	kind: ServiceAccount
+	metadata:
+	  name: cloudsampleksa 
+  
+- Enable the IAM binding between your YOUR-GSA-NAME and YOUR-KSA-NAME
+gcloud iam service-accounts add-iam-policy-binding --role roles/iam.workloadIdentityUser --member "serviceAccount:level-amphora-275105.svc.id.goog[default/cloudsampleksa]" cloudsampleapp@level-amphora-275105.iam.gserviceaccount.com 
+
+- Add an annotation to YOUR-KSA-NAME to complete the binding
+kubectl annotate serviceaccount cloudsampleksa iam.gke.io/gcp-service-account=cloudsampleapp@level-amphora-275105.iam.gserviceaccount.com
+- Finally, make sure to specify the service account for the k8s object.
+...
+emplate:
+    metadata:
+      labels:
+        app: cloudsample
+    spec:
+      serviceAccountName: cloudsampleksa
+...
+ 
+- Run the Cloud SQL proxy as a sidecar
 
