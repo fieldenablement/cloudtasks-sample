@@ -39,11 +39,11 @@ git push -u origin master
  
  ============ Update GKE with new version
  gcloud builds submit --tag=gcr.io/level-amphora-275105/gkeappdemo:v2 .
-$ kubectl set image deployment/cloudtasksample gkeappdemo=gcr.io/level-amphora-275105/gkeappdemo:v2 #gkeappdemo is container name
+$ kubectl set image deployment/cloudsample-deployment cloudsample=gcr.io/level-amphora-275105/gkeappdemo:v10 #gkeappdemo is container name
 $ kubectl get service
 
 ====
-curl http://34.125.14.42/task/1
+curl http://34.125.225.87/task/1
 
 curl -d '{"source":"source", "target":"target", "targetUrl":"http://localhost:8080", "referenceId":"referenceId", "referenceType":"referenceType", "syncId":"syncId", "status":"NEW", "requestMessage":"{\"requestMessage\":\"test\"}", "createUser":"createUser", "operationName":"operationName", "transactionId":"transactionId"}' -H 'Content-Type: application/json' http://34.125.14.42/task
 Invoke-WebRequest "http://34.125.14.42/createTask" -Method POST -Headers @{"Content-Type" = "application/json"} -body @{"source":"source", "target":"target", "targetUrl":"http://localhost:8080", "referenceId":"referenceId", "referenceType":"referenceType", "syncId":"syncId", "status":"NEW", "requestMessage":"{\"requestMessage\":\"test\"}", "createUser":"createUser", "operationName":"operationName", "transactionId":"transactionId"}
@@ -100,4 +100,4 @@ emplate:
 ...
  
 - Run the Cloud SQL proxy as a sidecar
-
+kubectl apply -f deployment.yaml

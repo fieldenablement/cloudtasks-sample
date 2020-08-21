@@ -18,9 +18,9 @@ spec:
       serviceAccountName: cloudsampleksa
       containers: 
       - name: cloudsample
-        image: gcr.io/level-amphora-275105/gkeappdemo:v2 
+        image: gcr.io/level-amphora-275105/gkeappdemo:v10 
         ports: 
-        - containerPort: 80
+        - containerPort: 8080
       - name: cloud-sql-proxy
         image: gcr.io/cloudsql-docker/gce-proxy:1.17
         command:
