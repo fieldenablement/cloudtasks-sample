@@ -30,6 +30,16 @@ spec:
           value: "test"
         - name: TARGET_URL
           value: "http://34.125.225.87/taskHandler"
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: test-secret
+              key: username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: test-secret
+              key: password              
       - name: cloud-sql-proxy
         image: gcr.io/cloudsql-docker/gce-proxy:1.17
         command:

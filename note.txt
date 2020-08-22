@@ -101,3 +101,10 @@ emplate:
  
 - Run the Cloud SQL proxy as a sidecar
 kubectl apply -f deployment.yaml
+
+==== secret
+
+echo -n 'jiquan.chen@gmail.com' | base64
+echo -n '^R@Shiyan' | base64
+
+kubectl apply -f secret.yaml
