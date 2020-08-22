@@ -17,12 +17,16 @@ public class AsyncRequestSender {
 	@Transactional
 	public int send(CloudTaskDestination destination, AsyncRequest request, int delayTime) {
 		try {
-			int id = dao.save(request);
-			request.setId(id);
+			if (request.getId() == null) {
+				int id = dao.save(request);
+				request.setId(id);
+			} else {
+				dao.update(request);
+			}
 			ObjectMapper mapper = new ObjectMapper();
 			String jsonString = mapper.writeValueAsString(request);
 			CloudTasksUtils.createTask(destination, jsonString, delayTime);
-			return id;
+			return request.getId();
 		} catch (IOException e) {
 			throw new AsyncRequestProcessException(e);
 		}

@@ -41,7 +41,7 @@ public class AsyncRequest {
 	public AsyncRequest() {}
 	
 	public AsyncRequest(Integer id, int attempts, String source, String target, URL targetUrl, String referenceId,
-			String referenceType, String syncId, String status, String operationName, String transactionId) {
+			String referenceType, String syncId, String status, String operationName, String transactionId, Date createTimeStamp) {
 		super();
 		this.id = id;
 		this.attempts = attempts;
@@ -54,6 +54,7 @@ public class AsyncRequest {
 		this.status = status;
 		this.operationName = operationName;
 		this.transactionId = transactionId;
+		this.createTimeStamp = createTimeStamp;
 	}
 
 	public Integer getId() {
