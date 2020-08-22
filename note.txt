@@ -23,6 +23,8 @@ git push -u origin master
  gcloud sql instances create synccloudtasks-instance --zone=us-west4-a
  gcloud sql databases create syncloudtasks --instance synccloudtasks-instance
  gcloud sql instances describe synccloudtasks-instance |grep connectionName
+ 
+ database view current connections: show processlist;
  ==============Create GKE Clouster
  gcloud container clusters create cloudtask-sample --num-nodes=3 --region=us-west4-a --scopes=cloud-platform # cloud-platform scope allows cluster access to cloudtask
  gcloud config set container/cluster cloudtask-sample
@@ -105,6 +107,6 @@ kubectl apply -f deployment.yaml
 ==== secret
 
 echo -n 'jiquan.chen@gmail.com' | base64
-echo -n '^R@Shiyan' | base64
+echo -n '^3wEbV9Qr' | base64
 
 kubectl apply -f secret.yaml

@@ -18,7 +18,7 @@ spec:
       serviceAccountName: cloudsampleksa
       containers: 
       - name: cloudsample
-        image: gcr.io/level-amphora-275105/gkeappdemo:v10 
+        image: gcr.io/level-amphora-275105/gkeappdemo:v17 
         ports: 
         - containerPort: 8080
         env:
