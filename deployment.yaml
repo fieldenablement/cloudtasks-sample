@@ -18,7 +18,7 @@ spec:
       serviceAccountName: cloudsampleksa
       containers: 
       - name: cloudsample
-        image: gcr.io/level-amphora-275105/gkeappdemo:v17 
+        image: gcr.io/level-amphora-275105/gkeappdemo:v20 
         ports: 
         - containerPort: 8080
         env:
@@ -29,7 +29,7 @@ spec:
         - name: QUEUE_ID
           value: "test"
         - name: TARGET_URL
-          value: "http://34.125.225.87/taskHandler"
+          value: "https://34.125.225.87/taskHandler"
         - name: DB_USERNAME
           valueFrom:
             secretKeyRef:
@@ -39,7 +39,13 @@ spec:
           valueFrom:
             secretKeyRef:
               name: test-secret
-              key: password              
+              key: password
+        - name: SERVICE_ACCOUNT_EMAIL
+          valueFrom:
+            secretKeyRef:
+              name: test-secret
+              key: serviceAccountEmail
+                            
       - name: cloud-sql-proxy
         image: gcr.io/cloudsql-docker/gce-proxy:1.17
         command:

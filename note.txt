@@ -32,10 +32,10 @@ git push -u origin master
  gcloud builds submit --tag=gcr.io/level-amphora-275105/gkeappdemo:v1 . 
  gcloud container images list
  ===============Create GKE deployment and service
- kubectl create deployment cloudtasksample  --image=gcr.io/level-amphora-275105/gkeappdemo:v1
+ kubectl create deployment cloudsample-deployment  --image=gcr.io/level-amphora-275105/gkeappdemo:v1 # changed to use deployment.yaml
  kubectl get pods
  kubectl describe pod <pod-name>
- kubectl expose deployment cloudtasksample --name=cloudtasksample-service --type=LoadBalancer --port 80 --target-port 8080
+ kubectl expose deployment cloudsample-deployment --name=cloudtasksample-service --type=LoadBalancer --port 80 --target-port 8080
  kubectl get service
  kubectl describe deployments
  

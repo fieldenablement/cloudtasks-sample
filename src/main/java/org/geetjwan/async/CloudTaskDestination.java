@@ -19,6 +19,7 @@ public class CloudTaskDestination  {
 	private String locationId = LOCATION_ID; 
 	private String queueId = QUEUE_ID; 
 	private String targetUrl = URL;
+	private String serviceAccountEmail;
 	
 	
 	public String getProjectId() {
@@ -49,4 +50,12 @@ public class CloudTaskDestination  {
 	public void setTargetUrl(String targetUrl) {
 		this.targetUrl = targetUrl;
 	}
+	public String getServiceAccountEmail() {
+		return env.getProperty("SERVICE_ACCOUNT_EMAIL");
+	}
+	public void setServiceAccountEmail(String serviceAccountEmail) {
+		this.serviceAccountEmail = serviceAccountEmail;
+	}
+	
+	
 }
