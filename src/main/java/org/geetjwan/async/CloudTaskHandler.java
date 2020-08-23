@@ -5,6 +5,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.geetjwan.async.state.StateContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -42,6 +42,9 @@ public class CloudTaskHandler {
 
 	@PostMapping(value = "/taskHandler")
 	public ResponseEntity<?> handler(UriComponentsBuilder builder, @RequestBody AsyncRequest request)  {
+		MDC.put("syncId", request.getSyncId());
+		MDC.put("transactionId", request.getTransactionId());
+		MDC.put("asynId", Integer.toString(request.getId()));
 		logger.info("entering taskHandler: " + request.toString());  
 		if (request.getId() == null) {
 			logger.error("Request ID is empty");
@@ -56,7 +59,9 @@ public class CloudTaskHandler {
 
 	@PostMapping(value = "/createTask")
 	public ResponseEntity<?> createTask(UriComponentsBuilder builder, @RequestBody AsyncRequest request)  {
-		logger.info("entering createTask:"  + request.toString()); 
+		MDC.put("syncId", request.getSyncId());
+		MDC.put("transactionId", request.getTransactionId());
+		logger.info("entering createTask: " + request.toString());  
 		try {
 			int id = asyncRequestSender.send(cloudTaskDestination, request, 0);
 			HttpHeaders headers = new HttpHeaders();
@@ -73,6 +78,7 @@ public class CloudTaskHandler {
 
 	@GetMapping("/task/{id}")
 	public AsyncRequest one(@PathVariable Integer id) {
+		MDC.put("asynId", Integer.toString(id));
 		logger.info("entering task id");
 		return asyncRequestDao.getAsyncRequest(id);
 	}
