@@ -40,6 +40,8 @@ public class CloudTaskHandler {
 	@Autowired
 	private AsyncRequestCallBack callBack;
 
+	
+	
 	@PostMapping(value = "/taskHandler")
 	public ResponseEntity<?> handler(UriComponentsBuilder builder, @RequestBody AsyncRequest request)  {
 		MDC.put("syncId", request.getSyncId());
@@ -81,5 +83,10 @@ public class CloudTaskHandler {
 		MDC.put("asynId", Integer.toString(id));
 		logger.info("entering task id");
 		return asyncRequestDao.getAsyncRequest(id);
+	}
+	
+	@GetMapping("/")
+	public ResponseEntity<?> one() {
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }

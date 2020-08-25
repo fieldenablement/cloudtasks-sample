@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cloudsample-deployment
+  namespace: default
   labels: 
     app: cloudsample
 spec:
@@ -18,9 +19,11 @@ spec:
       serviceAccountName: cloudsampleksa
       containers: 
       - name: cloudsample
-        image: gcr.io/level-amphora-275105/gkeappdemo:v20 
+        image: gcr.io/level-amphora-275105/gkeappdemo:v20
+        imagePullPolicy: IfNotPresent 
         ports: 
         - containerPort: 8080
+          protocol: TCP
         env:
         - name: SPRING_CLOUD_GCP_LOGGING_PROJECT_ID
           value: "level-amphora-275105"
@@ -52,4 +55,4 @@ spec:
           - "/cloud_sql_proxy"
           - "-instances=level-amphora-275105:us-west4:synccloudtasks-instance=tcp:1433"
         securityContext:
-          runAsNonRoot: true        
+          runAsNonRoot: true

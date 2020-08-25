@@ -31,14 +31,33 @@ git push -u origin master
  ==============build GCP image in container registery
  gcloud builds submit --tag=gcr.io/level-amphora-275105/gkeappdemo:v1 . 
  gcloud container images list
- ===============Create GKE deployment and service
+ =============Deprecated==Create GKE deployment and service (not use yaml)
  kubectl create deployment cloudsample-deployment  --image=gcr.io/level-amphora-275105/gkeappdemo:v1 # changed to use deployment.yaml
  kubectl get pods
  kubectl describe pod <pod-name>
- kubectl expose deployment cloudsample-deployment --name=cloudtasksample-service --type=LoadBalancer --port 80 --target-port 8080
+ kubectl expose deployment cloudsample-deployment --name=cloudtasksample-service --type=LoadBalancer --port 80 --target-port 8080 #use yaml deployment-ingress
  kubectl get service
  kubectl describe deployments
+ ====================
+ Option 1: Load Balance to Cluster IP
+ Deploy application:
+ kubectl apply -f deployment.yaml
  
+ Create an LoadBalancer
+ kubectl apply -f deployment-balancer.yaml
+ 
+ Option 2: GKE Ingress for HTTP(S) Load Balancing
+ - Deploy application:
+ kubectl apply -f deployment.yaml
+ - Expose Deployment as a Service internally
+ kubectl apply -f deployment-service.yaml
+ kubectl get service cloudsample-service # retrieve the node port 
+ NAME                  TYPE       CLUSTER-IP    EXTERNAL-IP   PORT(S)          AGE
+cloudsample-service   NodePort   10.40.2.129   <none>        8080:31989/TCP   9s
+- Create an Ingress resource
+kubectl apply -f deployment-ingress.yaml
+make sure the application path "/" return 200 for ingress to do health check. 
+
  ============ Update GKE with new version
  gcloud builds submit --tag=gcr.io/level-amphora-275105/gkeappdemo:v2 .
 $ kubectl set image deployment/cloudsample-deployment cloudsample=gcr.io/level-amphora-275105/gkeappdemo:v10 #gkeappdemo is container name
@@ -59,11 +78,12 @@ SPRING_CLOUD_GCP_LOGGING_PROJECT_ID =[gcp project id]
 create Cloud proxy
 create service account with permission:Cloud SQL Client, Cloud SQL Editor, Cloud SQL Admin
 cloud_sql_proxy -instances=level-amphora-275105:us-west4:synccloudtasks-instance=tcp:1433 -credential_file C:\Users\t835630\git\repository\cloudtasks-sample\MyFirstProject-a6aa03f03237.json
+
+cloud_sql_proxy -instances=level-amphora-275105:us-west4:cloudtaskdb=tcp:1433 -credential_file C:\Users\t835630\git\repository\cloudtasks-sample\MyFirstProject-a6aa03f03237.json
 ================== add environment variable
 gcloud composer environments update test-environment 
    --location us-west4 
    --update-env-variables=SPRING_CLOUD_GCP_LOGGING_PROJECT_ID=[gcp project id],LOCATION_ID=[],QUEUE_ID=[queue],TARGET_URL=[url]
-
 
 
 =======================
@@ -110,3 +130,17 @@ echo -n 'jiquan.chen@gmail.com' | base64
 echo -n '^3wEbV9Qr' | base64
 
 kubectl apply -f secret.yaml
+
+=====Configuring HTTPS to a Web Service on Google Kubernetes Engine
+https://estl.tech/configuring-https-to-a-web-service-on-google-kubernetes-engine-2d71849520d
+
+keytool -genkey -keyalg RSA -alias cloudsample -keystore selfsigned.jks -validity 10000 -keysize 2048
+password : ^3wEbV9Qr
+keytool -importkeystore -srckeystore selfsigned.jks -destkeystore selfsigned.jks -deststoretype pkcs12
+
+https://serverfault.com/questions/715827/how-to-generate-key-and-crt-file-from-jks-file-for-httpd-apache-server
+https://docs.cloudera.com/documentation/enterprise/6/6.1/topics/cm_sg_openssl_jks.html
+
+
+=======PostgreSQL==========
+
