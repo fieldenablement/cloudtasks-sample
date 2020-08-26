@@ -14,14 +14,16 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class AsyncRequestDao {
 
 	private static final String SELECT_BY_ID = "SELECT * FROM TASK_QUEUE WHERE ID = ?";
-	private static final String UPDATE_WITHOUT_PROCESSMESSAGE = "UPDATE TASK_QUEUE SET ATTEMPTS=:attempts, STATUS=:status where ID=:id";
-	private static final String UPDATE_WITH_PROCESSMESSAGE = "UPDATE TASK_QUEUE SET ATTEMPTS=:attempts, STATUS=:status, PROCESS_MESSAGE=:processMessage where ID=:id";
+	private static final String UPDATE_WITHOUT_PROCESSMESSAGE = "UPDATE TASK_QUEUE SET ATTEMPTS=:attempts, STATUS=:status, UPDATE_TIMESTAMP= NOW() where ID=:id";
+	private static final String UPDATE_WITH_PROCESSMESSAGE = "UPDATE TASK_QUEUE SET ATTEMPTS=:attempts, STATUS=:status, UPDATE_TIMESTAMP= NOW(),PROCESS_MESSAGE=:processMessage where ID=:id";
 	private static final String QUERY_PENDING = "SELECT ID, ATTEMPTS, SOURCE, TARGET, TARGET_URL, REFERENCE_ID, REFERENCE_TYPE, SYNC_ID, STATUS, OPERATION_NAME, TRANSACTION_ID, CREATE_TIMESTAMP FROM TASK_QUEUE WHERE SYNC_ID = :synId AND STATUS in ('NEW', 'ONHOLD', 'FAILED', 'WAIT', 'BLOCKED')";
 
 	private JdbcTemplate jdbcTemplate;
@@ -79,7 +81,7 @@ public class AsyncRequestDao {
 						rs.getInt(AsyncRequestRowMapper.ATTEMPTS),
 						rs.getString(AsyncRequestRowMapper.SOURCE),
 						rs.getString(AsyncRequestRowMapper.TARGET), 
-						rs.getURL(AsyncRequestRowMapper.TARGET_URL),
+						rs.getString(AsyncRequestRowMapper.TARGET_URL),
 						rs.getString(AsyncRequestRowMapper.REFERENCE_ID),
 						rs.getString(AsyncRequestRowMapper.REFERENCE_TYPE),
 						rs.getString(AsyncRequestRowMapper.SYNC_ID),

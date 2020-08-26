@@ -143,4 +143,5 @@ https://docs.cloudera.com/documentation/enterprise/6/6.1/topics/cm_sg_openssl_jk
 
 
 =======PostgreSQL==========
-
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO "fieldenablement.telus";
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO "jiquan.chen@gmail.com";

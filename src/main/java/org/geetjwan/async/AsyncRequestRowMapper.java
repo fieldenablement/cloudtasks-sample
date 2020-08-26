@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 public class AsyncRequestRowMapper implements RowMapper<AsyncRequest>{
 
 	public static final String TABLE_NAME = "TASK_QUEUE";
-	public static final String ID = "ID";
+	public static final String ID = "id";
 	public static final String ATTEMPTS = "ATTEMPTS";
 	public static final String CREATE_TIMESTAMP = "CREATE_TIMESTAMP";
 	public static final String CREATE_USER = "CREATE_USER";
@@ -43,7 +43,7 @@ public class AsyncRequestRowMapper implements RowMapper<AsyncRequest>{
 		asyncRequest.setSource(rs.getString(SOURCE));
 		asyncRequest.setStatus(rs.getString(STATUS));
 		asyncRequest.setTarget(rs.getString(TARGET));
-		asyncRequest.setTargetUrl(rs.getURL(TARGET_URL));
+		asyncRequest.setTargetUrl(rs.getString(TARGET_URL));
 		asyncRequest.setSyncId(rs.getString(SYNC_ID));
 		asyncRequest.setTransactionId(rs.getString(TRANSACTION_ID));
 		asyncRequest.setUpdateTimestamp(rs.getDate(UPDATE_TIMESTAMP));

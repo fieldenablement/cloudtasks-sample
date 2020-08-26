@@ -1,5 +1,6 @@
 package org.geetjwan.async;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
 
@@ -40,14 +41,18 @@ public class AsyncRequest {
 	
 	public AsyncRequest() {}
 	
-	public AsyncRequest(Integer id, int attempts, String source, String target, URL targetUrl, String referenceId,
+	public AsyncRequest(Integer id, int attempts, String source, String target, String targetUrl, String referenceId,
 			String referenceType, String syncId, String status, String operationName, String transactionId, Date createTimeStamp) {
 		super();
 		this.id = id;
 		this.attempts = attempts;
 		this.source = source;
 		this.target = target;
-		this.targetUrl = targetUrl;
+		try {
+			if (targetUrl != null) this.targetUrl = new URL(targetUrl);
+		} catch (MalformedURLException e) {
+			throw new IllegalArgumentException(e);
+		}
 		this.referenceId = referenceId;
 		this.referenceType = referenceType;
 		this.syncId = syncId;
@@ -93,10 +98,16 @@ public class AsyncRequest {
 		return targetUrl;
 	}
 
-	public void setTargetUrl(URL targetUrl) {
-		this.targetUrl = targetUrl;
+	public void setTargetUrl(String targetUrl) {
+		if (targetUrl != null) {
+			try {
+				this.targetUrl = new URL(targetUrl);
+			} catch (MalformedURLException e) {
+				throw new IllegalArgumentException(e);
+			}
+		}
 	}
-
+	
 	public String getReferenceId() {
 		return referenceId;
 	}
