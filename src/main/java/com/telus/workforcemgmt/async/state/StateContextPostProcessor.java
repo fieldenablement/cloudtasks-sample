@@ -1,4 +1,6 @@
-package org.geetjwan.async.state;
+package com.telus.workforcemgmt.async.state;
+
+import static com.telus.workforcemgmt.async.state.AsyncState.*;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -6,17 +8,17 @@ import java.io.StringWriter;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.geetjwan.async.AsyncConfigurable;
-import org.geetjwan.async.AsyncRequest;
-import org.geetjwan.async.AsyncRequestDao;
-import org.geetjwan.async.AsyncRequestDecorator;
-import org.geetjwan.async.AsyncRequestSender;
-import org.geetjwan.async.AsyncWarnException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import static org.geetjwan.async.state.AsyncState.*;
+
+import com.telus.workforcemgmt.async.AsyncConfigurable;
+import com.telus.workforcemgmt.async.AsyncRequest;
+import com.telus.workforcemgmt.async.AsyncRequestDao;
+import com.telus.workforcemgmt.async.AsyncRequestDecorator;
+import com.telus.workforcemgmt.async.AsyncRequestSender;
+import com.telus.workforcemgmt.async.AsyncWarnException;
 
 
 @Component

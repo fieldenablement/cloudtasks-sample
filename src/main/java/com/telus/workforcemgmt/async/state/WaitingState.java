@@ -1,13 +1,14 @@
-package org.geetjwan.async.state;
+package com.telus.workforcemgmt.async.state;
 
 import java.util.Calendar;
 import java.util.Date;
 
-import org.geetjwan.async.AsyncConfigurable;
-import org.geetjwan.async.AsyncRequest;
-import org.geetjwan.async.AsyncRequestDecorator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.telus.workforcemgmt.async.AsyncConfigurable;
+import com.telus.workforcemgmt.async.AsyncRequest;
+import com.telus.workforcemgmt.async.AsyncRequestDecorator;
 
 
 public class WaitingState implements AsyncState {

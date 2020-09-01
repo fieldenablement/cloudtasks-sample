@@ -1,4 +1,4 @@
-package org.geetjwan.async;
+package com.telus.workforcemgmt.async;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;

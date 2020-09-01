@@ -1,4 +1,4 @@
-package org.geetjwan.async;
+package com.telus.workforcemgmt.async;
 
 
 public interface AsyncRequestCallBack {

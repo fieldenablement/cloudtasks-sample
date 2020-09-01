@@ -1,4 +1,4 @@
-package org.geetjwan.async;
+package com.telus.workforcemgmt.async;
 
 /**
  * Thrown when a JobNotification is unable to be sent to the host system. 

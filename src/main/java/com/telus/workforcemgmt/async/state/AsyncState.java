@@ -1,7 +1,7 @@
-package org.geetjwan.async.state;
+package com.telus.workforcemgmt.async.state;
 
-import org.geetjwan.async.AsyncRequest;
-import org.geetjwan.async.AsyncRequestDecorator;
+import com.telus.workforcemgmt.async.AsyncRequest;
+import com.telus.workforcemgmt.async.AsyncRequestDecorator;
 
 public interface AsyncState {
 

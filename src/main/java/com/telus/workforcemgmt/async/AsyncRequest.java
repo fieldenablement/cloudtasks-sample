@@ -1,4 +1,4 @@
-package org.geetjwan.async;
+package com.telus.workforcemgmt.async;
 
 import java.net.MalformedURLException;
 import java.net.URL;
