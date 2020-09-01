@@ -47,7 +47,7 @@ public class CloudTasksUtils {
 							.putHeaders(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
 							.setBody(ByteString.copyFrom(payload, Charset.defaultCharset()))
 							.setUrl(targetUrl)
-							.setOidcToken(oidcTokenBuilder)
+							//.setOidcToken(oidcTokenBuilder)
 							.setHttpMethod(HttpMethod.POST)
 							.build()).setScheduleTime(Timestamp.newBuilder()
 									.setSeconds(Instant.now(Clock.systemUTC())

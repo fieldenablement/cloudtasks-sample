@@ -2,10 +2,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cloudsample-deployment
+  name: cloudsample
   namespace: default
   labels: 
     app: cloudsample
+    tier: frontendservice 
+    phase: test
+    deployment: v3 
 spec:
   replicas: 2
   selector:
@@ -19,7 +22,7 @@ spec:
       serviceAccountName: cloudsampleksa
       containers: 
       - name: cloudsample
-        image: gcr.io/level-amphora-275105/gkeappdemo:v20
+        image: gcr.io/level-amphora-275105/gkeappdemo:v28
         imagePullPolicy: IfNotPresent 
         ports: 
         - containerPort: 8080
@@ -32,7 +35,7 @@ spec:
         - name: QUEUE_ID
           value: "test"
         - name: TARGET_URL
-          value: "https://34.125.225.87/taskHandler"
+          value: "http://34.125.14.42/taskHandler"
         - name: DB_USERNAME
           valueFrom:
             secretKeyRef:
