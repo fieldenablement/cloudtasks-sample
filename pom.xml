@@ -114,10 +114,10 @@
 			 <plugin>
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>jib-maven-plugin</artifactId>
-                <version>${jib-maven-plugin.version}</version>
+                <version>1.5.1</version>
                 <configuration>
                     <to>
-                        <tags>${project.version}</tags>
+                        <tags>1.0</tags>
                         <image>gcr.io/test3-289120/cloudtasksample</image>
                     </to>
                     <container>
